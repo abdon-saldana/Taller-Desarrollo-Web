@@ -1,0 +1,189 @@
+/* 1. Colores y estilos generales. Cambia estas variables para personalizar el taller. */
+:root {
+  --pink: #f80b8c;
+  --pink-dark: #c9006c;
+  --blue: #006cf0;
+  --ink: #151515;
+  --muted: #606471;
+  --green: #008c46;
+  --radius: 24px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 26px; }
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100svh;
+  position: relative;
+  isolation: isolate;
+  color: var(--ink);
+  background: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  flex-direction: column;
+}
+button, a { -webkit-tap-highlight-color: transparent; }
+button { font: inherit; cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+button:focus-visible, a:focus-visible { outline: 3px solid var(--blue); outline-offset: 5px; }
+[tabindex="-1"]:focus { outline: none; }
+[hidden] { display: none !important; }
+.svg-library { position: absolute; width: 0; height: 0; overflow: hidden; }
+.skip-link { position: fixed; z-index: 10; top: 10px; left: 10px; transform: translateY(-180%); background: white; padding: 12px 18px; border: 2px solid var(--blue); border-radius: 8px; }
+.skip-link:focus { transform: none; }
+
+/* 2. Encabezado y navegación. */
+.site-header { width: min(1120px, calc(100% - 80px)); min-height: 112px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+.brand { display: inline-flex; align-items: center; gap: 11px; flex-shrink: 0; font-weight: 800; font-size: 19px; line-height: 1.02; letter-spacing: -.5px; }
+.brand-icon { color: var(--pink); width: 43px; height: 46px; }
+.navigation { display: flex; align-items: center; gap: 29px; font-size: 13px; font-weight: 700; }
+.nav-link { padding: 8px 0; background: none; border: 0; color: inherit; font-size: inherit; font-weight: inherit; }
+.navigation > a, .nav-link { transition: color .15s; }
+.navigation > a:hover, .nav-link:hover { color: var(--pink-dark); }
+.button { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 44px; padding: 12px 23px; border: 0; border-radius: 100px; font-weight: 700; font-size: 14px; transition: background .18s, transform .18s, box-shadow .18s; }
+.button:hover { transform: translateY(-2px); box-shadow: 0 5px 14px #12121212; }
+.button:active { transform: translateY(0); }
+.button-pink { color: #fff; background: var(--pink); }
+.button-pink:hover { background: var(--pink-dark); }
+.button-blue { background: var(--blue); color: white; }
+.button-blue:hover { background: #0059c8; }
+
+/* 3. Portada y tarjeta del quiz. */
+main { flex: 1; }
+.hero { text-align: center; padding: 50px 24px 0; }
+h1 { margin: 0; font-size: clamp(30px, 3.65vw, 48px); line-height: 1.2; letter-spacing: -1.9px; font-weight: 800; }
+h1 span { position: relative; white-space: nowrap; }
+h1 span::after { content: ""; position: absolute; left: 13%; right: 5%; bottom: -13px; height: 4px; border-radius: 50%; background: var(--pink); transform: rotate(-2deg); }
+.hero-description { margin: 33px 0 28px; font-size: 16px; line-height: 1.5; }
+.quiz-card { width: min(100%, 470px); margin: 0 auto; padding: 22px 34px 24px; border: 1px solid #f0f0f0; border-radius: var(--radius); background: #fff; box-shadow: 0 3px 10px #15151510, 0 0 2px #15151508; }
+.question-heading { display: flex; align-items: center; flex-direction: column; }
+.question-icon { width: 54px; height: 54px; border: 3px solid var(--pink); border-radius: 50%; display: grid; place-items: center; color: #fff; background: var(--blue); font-size: 35px; font-weight: 800; box-shadow: inset 0 0 0 2px #fff2; }
+.question-count { margin: 11px 0 14px; color: var(--pink-dark); font-size: 13px; font-weight: 700; }
+.progress-track { background: #f3f5f8; width: 80%; height: 3px; border-radius: 8px; overflow: hidden; }
+.progress-track span { display: block; width: 0; height: 100%; background: var(--pink); transition: width .25s ease; }
+.question { margin: 24px auto 24px; max-width: 365px; font-size: 22px; font-weight: 750; letter-spacing: -.5px; line-height: 1.35; }
+.answers { display: grid; gap: 12px; }
+.answer { position: relative; min-height: 47px; width: 100%; padding: 11px 35px; border: 1.5px solid #4288cf; background: white; color: var(--ink); border-radius: 24px; font-size: 15px; font-weight: 700; line-height: 1.3; transition: border-color .15s, background .15s, transform .15s; }
+.answer:first-child { border-color: var(--pink); }
+.answer:not(:disabled):hover { border-color: var(--pink); background: #fff2f9; transform: translateY(-1px); }
+.answer:disabled { cursor: default; opacity: 1; color: var(--ink); }
+.answer.is-correct { border-color: #00af57; background: #eafaf0; }
+.answer.is-wrong { border-color: #de3d65; background: #fff0f3; }
+.answer.is-correct::after, .answer.is-wrong::after { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); font-size: 20px; font-weight: 800; }
+.answer.is-correct::after { content: "✓"; color: var(--green); }
+.answer.is-wrong::after { content: "×"; color: #c32b51; }
+.feedback { margin-top: 20px; padding: 17px 15px; border-radius: 16px; background: #ecfbf1; text-align: left; display: flex; align-items: flex-start; gap: 12px; animation: reveal .2s ease-out; }
+.feedback.is-wrong { background: #fff2f6; }
+.feedback-icon { width: 43px; height: 43px; flex-shrink: 0; border-radius: 50%; display: grid; place-items: center; background: #00c45c; color: white; font-weight: 700; font-size: 29px; line-height: 1; }
+.feedback.is-wrong .feedback-icon { background: var(--pink); }
+.feedback h3 { font-size: 17px; margin: 1px 0 5px; }
+.feedback p { font-size: 12px; line-height: 1.6; margin: 0; }
+.encouragement { display: block; font-size: 11px; line-height: 1.6; margin-top: 5px; }
+.encouragement::before { content: "♥"; color: var(--pink); font-size: 15px; margin-right: 4px; }
+.next-button { margin-top: 17px; width: 100%; min-height: 44px; }
+.answer-hint { margin: 18px 0 0; font-size: 12px; color: var(--muted); line-height: 1.5; }
+.noscript { color: #a11340; line-height: 1.6; }
+
+/* 4. Resultado y pie de página. */
+.result-view { padding: 11px 0 14px; animation: reveal .25s ease; }
+.result-trophy { width: 80px; height: 80px; margin: 0 auto 18px; background: #eaf3ff; color: var(--blue); display: grid; place-items: center; border-radius: 50%; }
+.result-trophy svg { width: 48px; height: 48px; }
+.result-view h2 { font-size: 29px; margin: 17px 0; letter-spacing: -.7px; }
+.score { font-size: 82px; font-weight: 800; letter-spacing: -4px; color: var(--blue); margin: 18px 0 0; line-height: 1; }
+.score-total { font-size: 35px; letter-spacing: -1px; color: #8996a5; }
+.score-label { margin: 9px 0 0; color: var(--muted); font-size: 13px; }
+.result-message { font-size: 15px; line-height: 1.7; margin: 23px auto; max-width: 330px; }
+.restart-button { width: 100%; }
+.site-footer { text-align: center; margin: 29px 24px 0; padding-bottom: 44px; }
+.footer-trophy { width: 46px; height: 46px; border-radius: 50%; background: #eaf3ff; color: var(--blue); display: grid; place-items: center; margin: 0 auto 8px; }
+.footer-trophy svg { width: 30px; height: 30px; }
+.site-footer p { margin: 0; font-size: 12px; line-height: 1.6; }
+.site-footer .footer-title { font-size: 18px; font-weight: 800; letter-spacing: -.5px; margin-bottom: 3px; }
+
+/* 5. Formas decorativas inspiradas en la imagen de referencia. */
+.decoration { position: absolute; inset: 112px 0 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.corner { position: absolute; width: clamp(140px, 21vw, 300px); }
+.corner-top-left { top: 0; left: 0; width: clamp(120px, 19vw, 250px); }
+.corner-top-right { top: 0; right: 0; width: clamp(110px, 18vw, 245px); }
+.corner-bottom-left { left: 0; bottom: 0; }
+.corner-bottom-right { right: 0; bottom: 0; }
+.floating { position: absolute; }
+.note { color: var(--pink); width: 45px; height: 45px; left: 17%; top: 155px; transform: rotate(-8deg); }
+.lightning { color: var(--blue); width: 36px; height: 51px; right: 16%; top: 144px; transform: rotate(4deg); }
+.star-blue { color: var(--blue); width: 47px; height: 47px; left: 10%; bottom: 211px; }
+.star-pink { color: var(--pink); width: 34px; height: 34px; right: 10%; bottom: 230px; }
+.dot { position: absolute; border-radius: 50%; }
+.dot-pink { width: 12px; height: 12px; background: var(--pink); top: 42%; right: 7%; }
+.dot-blue { width: 7px; height: 7px; background: #b9d6ff; top: 55%; left: 7%; }
+
+/* 6. Ventanas de información. Escape también las cierra de forma nativa. */
+.info-dialog { width: min(460px, calc(100% - 40px)); padding: 35px; border: 1px solid #edf0f4; border-radius: var(--radius); box-shadow: 0 25px 100px #15234633; color: var(--ink); }
+.info-dialog::backdrop { background: #13244655; backdrop-filter: blur(4px); }
+.close-dialog { position: absolute; right: 13px; top: 10px; font-size: 29px; color: #68707d; border: none; background: transparent; width: 40px; height: 40px; border-radius: 50%; }
+.close-dialog:hover { background: #f3f5f9; }
+.dialog-note { font-size: 40px; color: var(--pink); }
+.info-dialog h2 { font-size: 27px; letter-spacing: -.7px; margin: 13px 0; }
+.info-dialog p, .info-dialog li { font-size: 15px; line-height: 1.75; }
+.info-dialog ol { padding-left: 21px; margin-bottom: 26px; }
+.info-dialog li { padding-left: 4px; margin-bottom: 9px; }
+.info-dialog .button { margin-top: 10px; }
+@keyframes reveal { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+/* 7. Diseño adaptable a tabletas y celulares. */
+@media (min-width: 1500px) { .hero { padding-top: 65px; } .site-footer { padding-bottom: 55px; } }
+@media (max-width: 900px) {
+  .site-header { width: calc(100% - 48px); gap: 20px; }
+  .navigation { gap: 18px; font-size: 12px; }
+  .brand { font-size: 17px; gap: 8px; }
+  .brand-icon { width: 36px; height: 39px; }
+  .hero { padding-top: 35px; }
+  .note { left: 6%; top: 125px; width: 34px; }
+  .lightning { right: 5%; top: 117px; width: 29px; height: 40px; }
+  .star-blue { left: 4%; }
+  .star-pink { right: 4%; }
+}
+@media (max-width: 600px) {
+  .site-header { width: calc(100% - 36px); min-height: 126px; flex-wrap: wrap; justify-content: center; gap: 13px 0; padding: 18px 0; }
+  .brand { margin-right: auto; }
+  .navigation { width: 100%; gap: 0; justify-content: space-between; font-size: 11px; }
+  .navigation .play-button { position: absolute; top: 19px; right: 18px; min-height: 39px; padding: 10px 17px; font-size: 12px; }
+  .navigation > a, .nav-link { min-height: 30px; display: inline-flex; align-items: center; }
+  .decoration { top: 126px; }
+  .hero { padding: 38px 20px 0; }
+  h1 { font-size: clamp(27px, 6.4vw, 36px); letter-spacing: -1.1px; }
+  h1 span::after { height: 3px; bottom: -10px; }
+  .hero-description { font-size: 13px; margin: 28px 0 25px; }
+  .quiz-card { padding: 19px 22px 23px; border-radius: 20px; }
+  .question-icon { width: 48px; height: 48px; font-size: 30px; }
+  .question-count { font-size: 12px; }
+  .question { font-size: 20px; margin: 22px auto; }
+  .answer { font-size: 13px; min-height: 44px; padding: 10px 31px; }
+  .feedback { padding: 15px 12px; gap: 10px; border-radius: 13px; }
+  .feedback-icon { width: 37px; height: 37px; font-size: 25px; }
+  .feedback h3 { font-size: 16px; }
+  .feedback p { font-size: 11px; }
+  .site-footer { margin-top: 25px; padding-bottom: 34px; }
+  .site-footer .footer-title { font-size: 16px; }
+  .site-footer p { font-size: 10px; }
+  .corner-top-left { width: 91px; left: -29px; }
+  .corner-top-right { width: 90px; right: -27px; }
+  .corner-bottom-left { width: 125px; }
+  .corner-bottom-right { width: 120px; right: -18px; }
+  .note { left: 5px; top: 125px; width: 25px; opacity: .6; }
+  .lightning { right: 6px; top: 126px; width: 23px; height: 32px; opacity: .65; }
+  .star-blue { width: 25px; left: 7px; bottom: 149px; }
+  .star-pink { width: 23px; right: 6px; bottom: 144px; }
+  .dot-pink { width: 8px; height: 8px; right: 6px; }
+  .dot-blue { width: 5px; height: 5px; left: 8px; }
+}
+@media (max-width: 350px) {
+  .hero { padding-left: 14px; padding-right: 14px; }
+  .quiz-card { padding-left: 17px; padding-right: 17px; }
+  .question { font-size: 18px; }
+  .info-dialog { padding: 28px 23px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

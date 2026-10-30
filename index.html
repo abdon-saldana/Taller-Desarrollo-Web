@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ff1593">
+  <meta name="description" content="¿Cuánto sabes de música? Responde cinco preguntas, descubre las respuestas y aprende jugando.">
+  <title>Mini Quiz de Música · Aprende. Juega. Rockea.</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <!-- Los símbolos SVG son dibujos vectoriales: no requieren imágenes externas. -->
+  <svg class="svg-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <linearGradient id="pink-gradient" x1="0" y1="0" x2="1" y2="1">
+        <stop stop-color="#ff54b9"/><stop offset="1" stop-color="#fa008a"/>
+      </linearGradient>
+      <linearGradient id="blue-gradient" x1="0" y1="0" x2="1" y2="1">
+        <stop stop-color="#008bff"/><stop offset="1" stop-color="#0054e7"/>
+      </linearGradient>
+      <pattern id="pink-dots" width="10" height="10" patternUnits="userSpaceOnUse">
+        <circle cx="2" cy="2" r="1.4" fill="#df56da"/>
+      </pattern>
+      <pattern id="blue-dots" width="10" height="10" patternUnits="userSpaceOnUse">
+        <circle cx="2" cy="2" r="1.1" fill="#8bc3ff"/>
+      </pattern>
+      <symbol id="music-note" viewBox="0 0 48 48">
+        <path fill="currentColor" d="M18 10 42 4v29c0 5-4 8-9 8-4 0-7-2-7-6s4-7 9-7h2V13l-14 4v22c0 5-4 8-9 8-4 0-7-2-7-6s4-7 9-7h2V10Z"/>
+      </symbol>
+      <symbol id="sparkle" viewBox="0 0 40 40">
+        <path fill="currentColor" d="M20 0c3 15 5 17 20 20-15 3-17 5-20 20C17 25 15 23 0 20 15 17 17 15 20 0Z"/>
+      </symbol>
+      <symbol id="bolt" viewBox="0 0 40 56">
+        <path fill="currentColor" d="M22 2h14L25 22h12L10 55l7-25H4L22 2Z"/>
+      </symbol>
+      <symbol id="trophy" viewBox="0 0 48 48">
+        <path d="M15 7h18v13c0 7-4 12-9 12s-9-5-9-12V7Zm0 4H7v6c0 6 4 9 10 9m16-15h8v6c0 6-4 9-10 9M24 32v8m-8 2h16" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="m24 12 1.7 3.5 3.8.6-2.8 2.7.7 3.8-3.4-1.8-3.4 1.8.7-3.8-2.8-2.7 3.8-.6Z" fill="currentColor"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <a class="skip-link" href="#quiz">Ir al quiz</a>
+
+  <div class="decoration" aria-hidden="true">
+    <svg class="corner corner-top-left" viewBox="0 0 250 390">
+      <path d="M0 0h163c8 79-105 102-111 184-4 56 30 79-52 133Z" fill="url(#pink-gradient)"/>
+      <path d="M0 182c87 39 96 118 0 192Z" fill="url(#pink-dots)"/>
+      <path d="M24 0h25L0 48V23Z" fill="#ff9ed3" opacity=".6"/>
+    </svg>
+    <svg class="corner corner-top-right" viewBox="0 0 250 360">
+      <path d="M0 0h250v307c-77-53 2-170-68-207C103 59 36 82 0 0Z" fill="url(#blue-gradient)"/>
+      <path d="M47 0h203v183C188 67 98 105 47 0Z" fill="url(#blue-dots)"/>
+    </svg>
+    <svg class="corner corner-bottom-left" viewBox="0 0 330 210">
+      <path d="M0 0c44 4 45 45 100 36 67-12 37 68 104 79 66 10 118 38 126 95H0Z" fill="url(#blue-gradient)"/>
+      <g fill="none" stroke="white" stroke-width="2" opacity=".85">
+        <path d="M65 66c80-30 45 55 109 75"/><path d="M66 88c64-26 35 46 90 71"/><path d="M82 44c75-17 42 51 102 70"/>
+      </g>
+    </svg>
+    <svg class="corner corner-bottom-right" viewBox="0 0 330 280">
+      <path d="M0 280c23-94 69-118 158-132C256 132 220 58 330 0v280Z" fill="url(#pink-gradient)"/>
+      <path d="M132 165c75-85 123-53 198-165v65c-58 70-114 114-198 100Z" fill="url(#pink-dots)"/>
+    </svg>
+    <svg class="floating note" viewBox="0 0 48 48"><use href="#music-note"/></svg>
+    <svg class="floating lightning" viewBox="0 0 40 56"><use href="#bolt"/></svg>
+    <svg class="floating star-blue" viewBox="0 0 40 40"><use href="#sparkle"/></svg>
+    <svg class="floating star-pink" viewBox="0 0 40 40"><use href="#sparkle"/></svg>
+    <span class="dot dot-pink"></span><span class="dot dot-blue"></span>
+  </div>
+
+  <header class="site-header">
+    <a class="brand" href="#inicio" aria-label="Mini Quiz de Música, inicio">
+      <svg class="brand-icon" viewBox="0 0 48 48" aria-hidden="true"><use href="#music-note"/></svg>
+      <span>Mini Quiz<br>de Música</span>
+    </a>
+    <nav class="navigation" aria-label="Navegación principal">
+      <a href="#inicio">Inicio</a>
+      <button type="button" class="nav-link" data-dialog="about">Sobre el proyecto</button>
+      <button type="button" class="nav-link" data-dialog="how">Cómo funciona</button>
+      <button type="button" class="button button-pink play-button" id="play-button">Jugar ahora</button>
+    </nav>
+  </header>
+
+  <main id="inicio">
+    <section class="hero" aria-labelledby="hero-title">
+      <h1 id="hero-title">¿Cuánto sabes de <span>música?</span></h1>
+      <p class="hero-description">Responde, descubre y aprende jugando.</p>
+
+      <section class="quiz-card" id="quiz" aria-label="Quiz de música">
+        <div id="question-view">
+          <div class="question-heading">
+            <span class="question-icon" aria-hidden="true">?</span>
+            <p class="question-count" id="question-count">Pregunta 1 de 5</p>
+            <div class="progress-track" role="progressbar" aria-label="Preguntas completadas" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0" id="progress"><span id="progress-fill"></span></div>
+          </div>
+          <h2 class="question" id="question" tabindex="-1">¿Quién fue el vocalista principal de la banda Queen?</h2>
+          <div class="answers" id="answers" role="group" aria-labelledby="question"></div>
+          <div class="feedback" id="feedback" role="status" aria-live="polite" aria-atomic="true" hidden>
+            <span class="feedback-icon" id="feedback-icon" aria-hidden="true">✓</span>
+            <div>
+              <h3 id="feedback-title"></h3>
+              <p id="feedback-description"></p>
+              <span class="encouragement" id="encouragement"></span>
+            </div>
+          </div>
+          <button type="button" class="button button-blue next-button" id="next-button" hidden>Siguiente pregunta <span aria-hidden="true">→</span></button>
+          <p class="answer-hint" id="answer-hint">Elige una respuesta para descubrirlo.</p>
+        </div>
+
+        <div class="result-view" id="result-view" hidden>
+          <span class="result-trophy" aria-hidden="true"><svg viewBox="0 0 48 48"><use href="#trophy"/></svg></span>
+          <p class="question-count">¡Quiz completado!</p>
+          <h2 id="result-title" tabindex="-1">¡Tú pones el ritmo!</h2>
+          <p class="score"><span id="score">0</span><span class="score-total"> / 5</span></p>
+          <p class="score-label">respuestas correctas</p>
+          <p class="result-message" id="result-message"></p>
+          <button type="button" class="button button-pink restart-button" id="restart-button">Volver a jugar <span aria-hidden="true">↻</span></button>
+        </div>
+        <noscript><p class="noscript">Activa JavaScript en tu navegador para jugar este quiz.</p></noscript>
+      </section>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span class="footer-trophy" aria-hidden="true"><svg viewBox="0 0 48 48"><use href="#trophy"/></svg></span>
+    <p class="footer-title">Aprende. Juega. Rockea.</p>
+    <p>Un mini quiz para músicos, fans y curiosos.</p>
+  </footer>
+
+  <dialog class="info-dialog" id="info-dialog" aria-labelledby="dialog-title">
+    <button class="close-dialog" id="close-dialog" type="button" aria-label="Cerrar ventana">×</button>
+    <span class="dialog-note" aria-hidden="true">♫</span>
+    <h2 id="dialog-title"></h2>
+    <p id="dialog-description"></p>
+    <ol id="dialog-steps" hidden>
+      <li>Lee la pregunta y elige una de las tres opciones.</li>
+      <li>Descubre la respuesta correcta y su explicación.</li>
+      <li>Avanza por las cinco preguntas y revisa tu puntaje.</li>
+    </ol>
+    <button type="button" class="button button-pink" id="dialog-play">¡Vamos a jugar!</button>
+  </dialog>
+</body>
+</html>
